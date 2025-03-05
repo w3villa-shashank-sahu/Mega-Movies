@@ -42,7 +42,7 @@ const SearchPage = () => {
   }, [query, navigate]);
 
   return (
-    <div className="relative min-h-screen text-white overflow-auto">
+    <div className="relative min-h-full text-white overflow-auto">
       {/* Title Section */}
       <div className="relative text-center py-12">
         <h1 className="text-3xl font-bold text-yellow-400">Search Results</h1>

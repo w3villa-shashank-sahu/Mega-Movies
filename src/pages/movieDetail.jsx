@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { MovieDetailModel } from "../models/movie";
+import { MovieModel } from "../models/card";
 import { MyConst } from "../backend/const";
+import { WishlistContext } from "../context/wishlist/wishlistcontext";
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
+  let wishlist = useContext(WishlistContext)
 
   useEffect(() => {
+    console.log(wishlist);
     const fetchMovieDetails = async () => {
       try {
         const response = await fetch(
@@ -15,6 +21,8 @@ const MovieDetails = () => {
         );
         const data = await response.json();
         const movieDetails = MovieDetailModel.fromApiResponse(data);
+        
+        wishlist.wishlist.forEach(e => {if(e.imdbId == id){setIsWishlisted(true)}})
         setMovie(movieDetails);
       } catch (error) {
         console.error("Error fetching movie details:", error);
@@ -22,7 +30,7 @@ const MovieDetails = () => {
     };
 
     fetchMovieDetails();
-  }, [id]);
+  },[]);
 
   if (!movie) {
     return <div className="text-white text-center text-lg py-10">Loading...</div>;
@@ -90,15 +98,35 @@ const MovieDetails = () => {
             </div>
 
             {/* Button */}
+            <div className="flex gap-3">
+            <div className="mt-6">
+              <button
+                onClick={()=>{
+                  let wishlistList = wishlist.wishlist;
+                  if(!isWishlisted){
+                    wishlistList.push(new MovieModel(movie.title, movie.year, id, 'movie', movie.poster))
+                  }
+                  else{
+                    wishlistList = wishlistList.filter(m => m.imdbId != id)
+                  }
+                  setIsWishlisted(!isWishlisted)
+                  wishlist.setWishlist(wishlistList)
+                }}
+                className="inline-block bg-yellow-400 text-black font-semibold px-6 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
+              >
+                { isWishlisted ? "remove from wishlist" :  "Add to wishlist"}
+              </button>
+            </div>
             <div className="mt-6">
               <a
                 href={`https://www.imdb.com/title/${id}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-yellow-400 text-black font-semibold px-6 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
+                className="inline-block bg-gray-800 text-yellow-400 border-amber-200 border-1 font-semibold px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300"
               >
                 View on IMDb
               </a>
+            </div>
             </div>
           </div>
         </div>

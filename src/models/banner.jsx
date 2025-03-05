@@ -1,5 +1,6 @@
 export class BannerDataModel {
-    constructor(title, year, imdbRating, genre, poster, actors) {
+    constructor(id, title, year, imdbRating, genre, poster, actors) {
+        this.id = id;
         this.title = title;
         this.year = year;
         this.imdbRating = imdbRating;

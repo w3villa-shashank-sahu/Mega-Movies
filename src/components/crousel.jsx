@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import fetchCrouselData from "../backend/database"; // Ensure correct import path
+import { useNavigate } from "react-router-dom";
+import { MyRoutes } from "../backend/const";
 
 function scrollCrousel(index){
   let carousel = document.getElementById('hero-carousel');
@@ -13,13 +16,28 @@ function scrollCrousel(index){
   // console.log('scroll: ', carousel.scrollLeft);
 }
 
+let ind = 0;
+
 
 const Carousel = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef(null)
+
+  let navigate = useNavigate();
 
   useEffect(() => {
+    console.log('runnign useEffect');
+    
+    intervalRef.current = setInterval(() => {
+      
+      ind = ind === 4 ? 0 : ind + 1;
+      scrollCrousel(ind)
+      setCurrentIndex(ind)
+    }, 5000);
+
+    // fetching movies
     async function fetchMovies() {
       setLoading(true);
       console.log("Fetching movies...");
@@ -30,11 +48,14 @@ const Carousel = () => {
       setLoading(false);
     }
     fetchMovies();
-  }, []);
 
+    return () => {
+      clearInterval(intervalRef.current);
+    }
+  }, []);
   return (
     <div className=" w-full max-w-7xl mx-auto overflow-hidden flex flex-col px-4 ">
-      <div className="flex overflow-auto snap-x snap-mandatory scroll-smooth " id="hero-carousel">
+      <div className="flex overflow-auto snap-x snap-mandatory scroll-smooth cursor-pointer" id="hero-carousel">
         {loading
           ? // Skeleton Loader
             [...Array(3)].map((_, index) => (
@@ -43,10 +64,13 @@ const Carousel = () => {
                 className="snap-start min-w-full min-h-[350px] flex bg-gray-800 animate-pulse"
               />
             ))
-          : // Movie Cards
+          : // Movie Cardss
             movies.map((movie, index) => (
               <div
                 key={index}
+                onClick={()=>{
+                  navigate(MyRoutes.details + movie.id)
+                }}
                 className=" border-6 border-gray-700 snap-center min-w-full min-h-[350px] max-h-[50vh] flex text-white bg-gray-800 m-4 rounded-2xl"
               >
                 {/* Left Panel - Movie Details */}
@@ -81,6 +105,7 @@ const Carousel = () => {
             <button
               key={index}
               onClick={()=>{
+                ind = index
                 setCurrentIndex(index);
                 scrollCrousel(index);
               }}

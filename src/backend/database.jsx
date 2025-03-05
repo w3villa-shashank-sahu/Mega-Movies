@@ -28,6 +28,7 @@ async function fetchCrouselData() {
       let url = removeSize(detailsData.Poster)
 
       return new BannerDataModel(
+        movie.imdbID,
         detailsData.Title,
         detailsData.Year,
         detailsData.imdbRating,

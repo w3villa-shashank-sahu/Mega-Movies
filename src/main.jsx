@@ -8,19 +8,22 @@ import { MyRoutes } from './backend/const';
 import MovieDetails from './pages/movieDetail'
 import SearchPage from './pages/search';
 import WishlistPage from './pages/wishlist';
+import { WishlistProvider } from './context/wishlist/whislist';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-   <Router>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path={MyRoutes.home} element={<Home />}/>
-          <Route path={`${MyRoutes.details}:id`} element={<MovieDetails />} />
-          <Route path={`${MyRoutes.search}:query`} element={<SearchPage/>}/>
-          <Route path={`${MyRoutes.wishlist}`} element={<WishlistPage/>} />
-          {/* <Route path="/movie/:id" element={<MovieDetails />} /> */}
-        </Route>
-      </Routes>
-    </Router>
+    <WishlistProvider>
+      <Router>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path={MyRoutes.home} element={<Home />}/>
+              <Route path={`${MyRoutes.details}:id`} element={<MovieDetails />} />
+              <Route path={`${MyRoutes.search}:query`} element={<SearchPage/>}/>
+              <Route path={`${MyRoutes.wishlist}`} element={<WishlistPage/>} />
+              {/* <Route path="/movie/:id" element={<MovieDetails />} /> */}
+            </Route>
+          </Routes>
+        </Router>
+    </WishlistProvider>
   </StrictMode>
 )
