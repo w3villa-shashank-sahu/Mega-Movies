@@ -10,39 +10,62 @@ const SearchPage = () => {
 
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1)
 
-  useEffect(() =>  {
-    console.log('running search page');
-    
-    const fetchMovies = async () => {
-      if (!query) {
-        navigate(MyRoutes.home)
-      };
-      setLoading(true);
-
-      try {
-        const response = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=${MyConst.apiKey}&s=${query}&page=1`);
-        const data = await response.json();
-        console.log(data.Search);
-        
-        if (data.Search) {
-          setMovies(data.Search.map((movie) => new MovieModel(movie.Title, movie.Year, movie.imdbID, movie.Type, movie.Poster)));
-        } else {
-          setMovies([]);
-        }
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-        setMovies([]);
-      }
-
-      setLoading(false);
+  // fetch data from API
+  const fetchMovies = async () => {
+    if (!query) {
+      navigate(MyRoutes.home)
     };
 
+    try {
+      if(page > totalPage){
+        return;
+      }
+      console.log(page, '-', totalPage);
+      
+      const response = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=${MyConst.apiKey}&s=${query}&page=${page}`);
+      const data = await response.json();
+      if(page == 1) {
+        setTotalPage(Math.floor(data.totalResults / 10));
+        console.log('running', totalPage);
+      }
+      console.log(data.Search);
+      let newData = data.Search.map((movie) => new MovieModel(movie.Title, movie.Year, movie.imdbID, movie.Type, movie.Poster))
+      setMovies((prev) => [...prev, ...newData]);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+      setMovies([]);
+    }    
+  };
+
+  useEffect(() =>  {
     fetchMovies();
-  }, [query, navigate]);
+  }, [page]);
+
+  const handelInfiniteScroll = async () => {
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+      ) {
+        setLoading(true);
+        setPage((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handelInfiniteScroll);
+    return () => window.removeEventListener("scroll", handelInfiniteScroll);
+  }, []);
+
 
   return (
-    <div className="relative min-h-full text-white overflow-auto">
+    <div className="relative min-h-screen text-white overflow-auto">
       {/* Title Section */}
       <div className="relative text-center py-12">
         <h1 className="text-3xl font-bold text-yellow-400">Search Results</h1>
@@ -51,15 +74,14 @@ const SearchPage = () => {
 
       {/* Movie Grid */}
       <div className="relative max-w-6xl mx-auto px-4 py-8">
-        {loading ? (
-          <p className="text-center text-gray-400 text-lg">Loading movies...</p>
-        ) : movies.length > 0 ? (
+        {movies.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {movies.map((movie) => <MovieCard key={movie.imdbID} movie={movie} /> )}
           </div>
         ) : (
           <p className="text-center text-gray-400 text-lg">No movies found for "{query}". Try another search!</p>
         )}
+        {loading && <p className="text-center text-gray-400 p-6 text-lg">Loading movies...</p>}
       </div>
     </div>
   );

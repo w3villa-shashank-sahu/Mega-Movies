@@ -35,7 +35,7 @@ const Carousel = () => {
       ind = ind === 4 ? 0 : ind + 1;
       scrollCrousel(ind)
       setCurrentIndex(ind)
-    }, 5000);
+    }, 3000);
 
     // fetching movies
     async function fetchMovies() {

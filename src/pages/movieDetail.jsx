@@ -30,7 +30,7 @@ const MovieDetails = () => {
     };
 
     fetchMovieDetails();
-  },[]);
+  },[id, wishlist]);
 
   if (!movie) {
     return <div className="text-white text-center text-lg py-10">Loading...</div>;

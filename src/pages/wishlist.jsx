@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import MovieCard from "../components/movieCard"; // Your existing MovieCard component
 import { WishlistContext } from "../context/wishlist/wishlistcontext";
 

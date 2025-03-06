@@ -8,4 +8,6 @@ export class MyRoutes{
     static details = '/movies/'
     static search = '/search/'
     static wishlist = '/wishlist'
+    static login = '/login'
+    
 }

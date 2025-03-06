@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from './pages/layout';
 import Home from "./pages/home";
@@ -8,13 +8,16 @@ import { MyRoutes } from './backend/const';
 import MovieDetails from './pages/movieDetail'
 import SearchPage from './pages/search';
 import WishlistPage from './pages/wishlist';
+import LoginPage from "./pages/login";
 import { WishlistProvider } from './context/wishlist/whislist';
 
+
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <WishlistProvider>
       <Router>
           <Routes>
+            <Route path={MyRoutes.login} element={<LoginPage />} />
             <Route element={<Layout />}>
               <Route path={MyRoutes.home} element={<Home />}/>
               <Route path={`${MyRoutes.details}:id`} element={<MovieDetails />} />
@@ -25,5 +28,5 @@ createRoot(document.getElementById('root')).render(
           </Routes>
         </Router>
     </WishlistProvider>
-  </StrictMode>
+  // </StrictMode>
 )

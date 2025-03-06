@@ -42,7 +42,7 @@ const AppBar = () => {
                 type="text"
                 id="searchInput"
                 placeholder="Search movies"
-                autoComplete='none'
+                autoComplete='off'
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     handleSearch();
