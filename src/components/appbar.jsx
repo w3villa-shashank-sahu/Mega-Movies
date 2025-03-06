@@ -1,7 +1,7 @@
 import { Search, HeartIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { MyConst, MyRoutes } from '../backend/const';
+import { MyRoutes } from '../backend/const';
 
 const AppBar = () => {
   const [showInput, setShowInput] = useState(false);

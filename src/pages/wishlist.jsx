@@ -1,13 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import MovieCard from "../components/movieCard"; // Your existing MovieCard component
 import { WishlistContext } from "../context/wishlist/wishlistcontext";
+// import { useEffect } from "react";
 
-const WishlistPage = () => {
+const WishlistPage = () => { 
   
-  let wishlist = useContext(WishlistContext).wishlist;
+  let wishlist = useContext(WishlistContext);
   // let setWishlist =  useContext(WishlistContext).setWishlist;
   console.log(wishlist);
-  
+  useEffect(()=>{
+    const list = wishlist.loadWishlist()
+    wishlist.setWishlist(list)
+  },[])
 
   return (
     <div className=" flex flex-col bg-gray-900 min-h-full text-white">
@@ -26,15 +30,15 @@ const WishlistPage = () => {
       
       {/* Movie List */}
       <div className="relative max-w-6xl mx-auto px-4 py-8">
-        {wishlist.length > 0 ? (
+        {wishlist.wishlist.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            {wishlist.map((movie) => (
+            {wishlist.wishlist.map((movie) => (
               <MovieCard key={movie.imdbId} movie={movie} />
             ))}
           </div>
         ) : (
           <p className="text-center text-gray-400 text-lg mt-10">
-            Your wishlist is empty. Start adding your favorite movies! 🎬
+            Your wishlist is empty. Start adding your favorite movies! 
           </p>
         )}
       </div>

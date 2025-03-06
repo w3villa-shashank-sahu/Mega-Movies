@@ -110,6 +110,7 @@ const MovieDetails = () => {
                     wishlistList = wishlistList.filter(m => m.imdbId != id)
                   }
                   setIsWishlisted(!isWishlisted)
+                  wishlist.saveWishlist(wishlistList)
                   wishlist.setWishlist(wishlistList)
                 }}
                 className="inline-block bg-yellow-400 text-black font-semibold px-6 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"

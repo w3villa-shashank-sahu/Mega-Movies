@@ -9,5 +9,5 @@ export class MyRoutes{
     static search = '/search/'
     static wishlist = '/wishlist'
     static login = '/login'
-    
+    static register = '/register'    
 }

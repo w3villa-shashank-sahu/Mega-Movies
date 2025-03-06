@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-
 import fetchCrouselData from "../backend/database"; // Ensure correct import path
 import { useNavigate } from "react-router-dom";
 import { MyRoutes } from "../backend/const";

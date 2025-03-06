@@ -6,7 +6,7 @@ const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="cursor-pointer shadow-[0_0_10px_1px_rgba(255,255,255,0.6)] relative min-w-50 max-w-50 bg-gray-900 text-white rounded-lg overflow-hidden transition-transform transform hover:scale-105"
+    <div className="cursor-pointer shadow-[0_0_5px_1px_rgba(255,255,255,0.6)] relative min-w-50 max-w-50 bg-gray-900 text-white rounded-lg overflow-hidden transition-transform transform hover:scale-105"
     onClick={()=>{
       navigate(MyRoutes.details + movie.imdbId)
     }}>

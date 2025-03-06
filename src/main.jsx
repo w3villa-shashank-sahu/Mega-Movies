@@ -10,6 +10,7 @@ import SearchPage from './pages/search';
 import WishlistPage from './pages/wishlist';
 import LoginPage from "./pages/login";
 import { WishlistProvider } from './context/wishlist/whislist';
+import Protected from "./pages/protected";
 
 
 createRoot(document.getElementById('root')).render(
@@ -19,11 +20,10 @@ createRoot(document.getElementById('root')).render(
           <Routes>
             <Route path={MyRoutes.login} element={<LoginPage />} />
             <Route element={<Layout />}>
-              <Route path={MyRoutes.home} element={<Home />}/>
-              <Route path={`${MyRoutes.details}:id`} element={<MovieDetails />} />
-              <Route path={`${MyRoutes.search}:query`} element={<SearchPage/>}/>
-              <Route path={`${MyRoutes.wishlist}`} element={<WishlistPage/>} />
-              {/* <Route path="/movie/:id" element={<MovieDetails />} /> */}
+              <Route path={MyRoutes.home} element={<Protected Page={Home}/>}/>
+              <Route path={`${MyRoutes.details}:id`} element={<Protected Page={MovieDetails}/>} />
+              <Route path={`${MyRoutes.search}:query`} element={<Protected Page={SearchPage}/>}/>
+              <Route path={`${MyRoutes.wishlist}`} element={<Protected Page={WishlistPage}/>} />
             </Route>
           </Routes>
         </Router>
