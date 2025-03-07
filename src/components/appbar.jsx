@@ -26,7 +26,7 @@ const AppBar = () => {
 
   return (
     <nav className="bg-gray-900 mb-2 pb-4 w-full sticky top-0 z-1 h-fit justify-center flex flex-col sm:flex-row">
-      <div className="max-w-7xl w-full flex justify-between items-center h-full pt-3 ">
+      <div className="max-w-7xl w-full flex justify-between items-center h-full pt-3 px-4 ">
         <h1 className="text-white text-[clamp(18px,3.5vw,30px)] md:text-3xl font-bold cursor-default"
         onClick={()=>{navigate(MyRoutes.home)}}>
           Mega Movies
