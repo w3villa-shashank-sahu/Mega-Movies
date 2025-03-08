@@ -15,6 +15,7 @@ const SearchPage = () => {
 
   // fetch data from API
   const fetchMovies = async () => {
+
     if (!query) {
       navigate(MyRoutes.home)
     };
@@ -32,6 +33,10 @@ const SearchPage = () => {
         console.log('running', totalPage);
       }
       console.log(data.Search);
+      if(data.Search === undefined){
+        setLoading(false)
+        return;
+      }
       let newData = data.Search.map((movie) => new MovieModel(movie.Title, movie.Year, movie.imdbID, movie.Type, movie.Poster))
       setMovies((prev) => [...prev, ...newData]);
       setLoading(false);
@@ -41,8 +46,19 @@ const SearchPage = () => {
     }    
   };
 
+  
+
+  useEffect(() => {
+    console.log('sdfsdgs');
+    
+    
+  }, [])
+
   useEffect(() =>  {
+    // setMovies([])
     fetchMovies();
+    console.log('fetching movie');
+    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[page]);
 

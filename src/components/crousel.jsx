@@ -73,7 +73,7 @@ const Carousel = () => {
                 className=" border-6 border-gray-700 snap-center min-w-full h-fit md:min-h-[350px] max-h-[50vh] flex flex-col md:flex-row text-white bg-gray-800 m-4 rounded-2xl"
               >
                 {/* Left Panel*/}
-                <div className="flex-1 mt-4 md:mt-0 md:ml-6 text-center md:text-left self-center">
+                <div className="flex-1 order-2 md:order-1 mt-4 md:mt-0 md:ml-6 text-center md:text-left self-center">
                   <h2 className="text-2xl md:text-4xl font-bold">{movie.title}</h2>
                   <p className="text-gray-400 text-sm mt-1">{movie.year}</p>
                   <p className="mt-2 text-lg">{movie.genre}</p>
@@ -86,14 +86,14 @@ const Carousel = () => {
                 </div>
 
                 {/* Right Panel*/}
-                <div className="flex-[1.2] relative overflow-hidden rounded-2xl md:rounded-r-2xl">
-  <img
-    src={movie.poster}
-    alt={movie.title}
-    className="w-full h-auto max-h-[50vh] object-cover rounded-2xl md:rounded-r-2xl"
-  />
-  <div className="absolute h-30 w-full md:h-full md:left-0 md:w-30 top-0 bg-gradient-to-b md:bg-gradient-to-r from-gray-800 to-transparent" />
-</div>
+                <div className="flex-[1.2] order-1 md:order-2 relative overflow-hidden rounded-2xl md:rounded-r-2xl">
+                  <img
+                    src={movie.poster}
+                    alt={movie.title}
+                    className="w-full h-auto max-h-[50vh] object-cover rounded-2xl md:rounded-r-2xl"
+                  />
+                  <div className="absolute h-30 w-full md:h-full md:left-0 md:w-30 bottom-0 md:top-0 bg-gradient-to-t md:bg-gradient-to-r from-gray-800 to-transparent" />
+                </div>
               </div>
             ))}
       </div>
