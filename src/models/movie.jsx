@@ -10,6 +10,7 @@ export class MovieDetailModel {
     writer,
     actors,
     plot,
+    ratings,
     language,
     country,
     awards,
@@ -27,6 +28,7 @@ export class MovieDetailModel {
     this.writer = writer;
     this.actors = actors;
     this.plot = plot;
+    this.reviews = ratings;
     this.language = language;
     this.country = country;
     this.awards = awards;
@@ -47,6 +49,7 @@ export class MovieDetailModel {
       writer: response.Writer,
       actors: response.Actors,
       plot: response.Plot,
+      ratings: response.Ratings.map(item => new RatingModel(item.Source, item.Value)),
       language: response.Language,
       country: response.Country,
       awards: response.Awards,
@@ -55,4 +58,11 @@ export class MovieDetailModel {
       boxOffice: response.BoxOffice,
     });
   }
+}
+
+class RatingModel{
+  constructor(source, value) {
+    this.source = source;
+    this.value = value;
+    }
 }

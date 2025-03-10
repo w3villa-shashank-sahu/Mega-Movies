@@ -5,6 +5,8 @@ import { WishlistContext } from "../context/wishlist/wishlistcontext";
 import { useEffect, useContext } from "react";
 
 const Home = () => {
+  console.log(navigator.language); // Returns the first preferred language
+  console.log(navigator.languages); // Returns an array of preferred languages
   const context = useContext(WishlistContext)
   useEffect(()=>{
     const list = context.loadWishlist()

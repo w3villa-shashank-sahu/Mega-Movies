@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import googleImg from "../image/google.png"
 import {
   auth,
   googleProvider,
@@ -111,7 +112,7 @@ const LoginPage = () => {
         }}
       >
         <div className="flex flex-col items-center justify-center h-screen w-full bg-[#0000007e]">
-        <h1 className="text-7xl text-amber-200">MEGA MOVIES</h1>
+        <h1 className="text-7xl text-amber-200 text-center ">MEGA MOVIES</h1>
         <p className="mb-15 text-amber-100">Get all Details about Movies</p>
         <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
           <h2 className="text-3xl font-semibold text-center text-yellow-400">
@@ -151,8 +152,7 @@ const LoginPage = () => {
               <button
                 type="button"
                 className="text-yellow-400 hover:underline"
-                onClick={() => setIsLogin(!isLogin)}
-              >
+                onClick={() => setIsLogin(!isLogin)}>
                 {isLogin ? "Login" : "Sign Up"}
               </button>
             </div>
@@ -172,7 +172,7 @@ const LoginPage = () => {
             className="mt-4 w-full flex items-center justify-center bg-white text-gray-900 py-2 rounded hover:bg-gray-300 font-semibold"
             onClick={handleGoogleSignIn}
           >
-            <img src="../image/google.png" alt="" />
+            <img src={googleImg} className="h-6 w-6 mr-2" alt="" />
             Sign up with google
           </button>
         </div>
